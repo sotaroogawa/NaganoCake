@@ -1,0 +1,29 @@
+<h2>商品詳細</h2>
+<%= attachment_image_tag @item, :image %>
+ <table>
+    <thead>
+      <tr>
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>税抜価格</th>
+        <th>ジャンル</th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td></td>
+          <td><%= @item.id %></td>
+          <td><%= @item.name %></td>
+          <td><%= @item.price %></td>
+          <td><%= @item.genre.name %></td>
+          <td>
+            <% if @item.is_active == true %>
+              販売中
+            <% else %>
+              販売停止中
+            <% end %>
+          </td>
+        </tr>
+    </tbody>
+  </table>

@@ -1,0 +1,17 @@
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th><h4>ジャンル検索</h4></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @genres.each do |genre| %>
+          <tr>
+            <!-- each文でジャンル名を取り出し、クリックした際にroutesで設定したitemsのパスを通って、itemsコントローラのsearchアクションに繋げてる。パラメーターにはクリックしたジャンルのidを渡してる。 -->
+            <td> <%= link_to genre.name, search_items_path(genre), method: :get %></i></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>

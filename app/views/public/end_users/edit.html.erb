@@ -1,0 +1,49 @@
+<h2>会員情報編集</h2>
+<%= form_with(model:@end_user, url:end_users_update_path ,method: :PATCH) do |f| %>
+<table>
+  <tr>
+    <div class="field">
+      <th><%= f.label :氏名 %></th>
+      <td><%= f.text_field :last_name, autofocus: true %></td>
+      <td><%= f.text_field :first_name, autofocus: true %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field">
+      <th><%= f.label :カナ %></th>
+      <td><%= f.text_field :last_name_kana, autofocus: true %></td>
+      <td><%= f.text_field :first_name_kana, autofocus: true %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field">
+      <th><%= f.label :郵便番号 %></th>
+      <td><%= f.text_field :postal_code, autofocus: true %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field">
+      <th><%= f.label :住所 %></th>
+      <td><%= f.text_field :address, autofocus: true %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field">
+      <th><%= f.label :電話番号 %></th>
+      <td><%= f.text_field :telephone_number, autofocus: true %></td>
+     </div>
+  </tr>
+  <tr>
+    <div class="field">
+      <th><%= f.label :メールアドレス %></th><
+      <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+    </div>
+  </tr>
+</table>
+
+  <div class="action"><br>
+    <%= f.submit "編集内容を保存する" %>
+    <%= link_to "退会する", end_users_unsubscribe_path %>
+  </div>
+
+<% end %>

@@ -1,0 +1,80 @@
+<div class="text-center">
+  <h1>注文履歴詳細</h1>
+
+  <table class="mx-auto table table-bordered">
+    <tr>
+      <th>購入者</th>
+      <td><%= @order.name %></td>
+    </tr>
+    <tr>
+      <th>注⽂⽇</th>
+      <td><%= @order.created_at.to_s(:datetime_jp) %></td>
+    </tr>
+    <tr>
+      <th>配送先</th>
+      <td><%= @order.address %></td>
+    </tr>
+    <tr>
+      <th>⽀払⽅法</th>
+      <td>
+        <% if @order.card? %>
+          <span>カード</span>
+        <% else %>
+          <span>銀行振込</span>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th class="table-active">注⽂ステータス</th>
+      <td>
+         <%= form_with(model:@order, url:admin_order_path(@order), method: :PATCH) do |f| %>
+            <%= f.select :is_order, options_for_select([['入金待ち', "payment_waiting"], ['入金確認', "confirm"], ['製作中', "running"], ['発送準備中', "shipment_waiting"], ['発送済み', "executed"]], { :selected => @order.is_order}) %>
+            <%= f.submit '更新',class:"btn btn-success" %>
+          <% end %>
+      </td>
+    </tr>
+  </table>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>商品名</th>
+        <th>単価</th>
+        <th>個数</th>
+        <th>小計</th>
+        <th>制作ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order_details.each do |order_detail| %>
+        <tr>
+          <td><%= order_detail.item.name %></td>
+          <td><%= order_detail.add_tax_price.to_s(:delimited) %></td>
+          <td><%= order_detail.amount %></td>
+          <td><%= (order_detail.add_tax_price * order_detail.amount).to_s(:delimited) %></td>
+          <td>
+            <%= form_with(model:order_detail, url:admin_order_detail_path(order_detail), method: :PATCH) do |f| %>
+              <%= f.select :is_making, options_for_select([['制作不可', "no_running"], ['制作待ち', "produce_waiting"], ['製作中', "produce_running"], ['製作完了', "produce_executed"]], { :selected => order_detail.is_making }) %>
+              <%= f.submit '更新',class:"btn btn-success" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<table class="table table-bordered">
+    <tr>
+      <th>商品合計</th>
+      <td><%= @sum = (@order.total_payment - @order.shipping_cost).to_s(:delimited) %>円</td>
+    </tr>
+    <tr>
+      <th>送料</th>
+      <td><%= @order.shipping_cost.to_s(:delimited) %>円</td>
+    </tr>
+    <tr>
+      <th>ご請求金額</th>
+      <td><%= @order.total_payment.to_s(:delimited) %>円</td>
+    </tr>
+  </table>
+</div>

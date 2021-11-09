@@ -1,0 +1,10 @@
+<div>
+  <h3>本当に退会しますか？</h3><br>
+  退会すると、会員登録情報や<br>
+  これまでの購⼊履歴が閲覧できなくなります。<br>
+  退会する場合は、「退会する」をクリックしてください。<br>
+
+
+  <%= link_to "退会しない", end_users_my_page_path %>
+  <%= link_to "退会する", end_users_withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？"%>
+</div>

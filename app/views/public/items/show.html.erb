@@ -1,0 +1,19 @@
+<div class="text-left">
+  <%= render "public/shared/sidebar", genres: @genres %><br>
+</div>
+
+<div class="text-center">
+  <h3>商品詳細</h3>
+    <%= attachment_image_tag @item, :image, size: "200x200" %>
+    <h4><%= @item.name %></h4>
+    <p><%= @item.introduction %></p>
+    <p>¥<%= @item.add_tax_price.to_s(:delimited) %>(税込)</p><br>
+    <p>
+      <%= form_with(model:@cart_item, url:cart_items_path ,method: :POST) do |f| %>
+        <%= f.hidden_field :item_id, value:@item.id %>
+        <%= f.select :amount, [1,2,3,4,5,6,7,8,9,10], {include_blank: "選択して下さい"} %>
+        <%= f.submit "カートに入れる" %>
+      <% end %>
+    </p>
+</div>
+

@@ -1,0 +1,42 @@
+<div class="text-center">
+  <h1>注文情報履歴</h1>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>注文日</th>
+        <th>配送先</th>
+        <th>注文商品</th>
+        <th>注文金額</th>
+        <th>ステータス</th>
+        <th>注文詳細</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+          <td><%= order.address %></td>
+          <td><% order.order_details.each do |order_detail| %>
+      				<%= order_detail.item.name %><br>
+      			  <% end %>
+			    </td>
+          <td><%= order.total_payment.to_s(:delimited, delimiter: ',') %>円</td>
+          <td>
+            <% if order.payment_waiting? %>
+              <span>入金待ち</span>
+            <% elsif order.confirm? %>
+              <span>入金確認</span>
+            <% elsif order.running? %>
+              <span>製作中</span>
+            <% elsif order.shipment_waiting? %>
+              <span>発送準備中</span>
+            <% elsif order.executed? %>
+              <span>発送済み</span>
+            <% end %>
+          </td>
+          <td><%= link_to "表示する", order_path(order), class: "btn btn-primary" %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,28 @@
+<h2>会員一覧</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>会員ID</th>
+      <th>氏名</th>
+      <th>メールアドレス</th>
+      <th>ステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @end_users.each do |user| %>
+      <tr>
+        <th><%= user.id %></th>
+        <th><%= user.last_name %><%= user.first_name %></th>
+        <th><%= user.email %></th>
+        <th>
+          <% if user.is_unsubscribe == false %>
+            有効
+          <% else %>
+          　退会
+          <% end %>
+        </th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
