@@ -1,7 +1,6 @@
-<h1>注文情報入力</h1>
-
-<%= form_with(model:@order, url:orders_confirm_path ,method: :post, local: true) do |f| %>
-
+<div style="text-align:center">
+<h2>注文情報入力</h2>
+<%= form_with model:@order, url:orders_confirm_path ,method: :post, local: true do |f| %>
   <div class="field">
     <h5>支払い方法</h5>
     <%= f.radio_button :payment_method, "card", checked: true %>
@@ -11,7 +10,6 @@
   </div>
   <div class="field">
     <h5>お届け先</h5>
-
     <%= f.radio_button :address_option, 0 %>
     <%= f.label :ご自身のお届け先 %><br>
     <%= current_end_user.address%><br/><br>
@@ -32,5 +30,5 @@
 <div class="action"><br>
     <%= f.submit "確認画面に進む", class: "btn btn-primary" %>
   </div>
-
 <% end %>
+
