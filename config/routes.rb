@@ -1,26 +1,5 @@
 Rails.application.routes.draw do
   root to: 'public/homes#top'
-
-  devise_for :end_users, controllers: {
-    sessions:      'end_users/sessions',
-    passwords:     'end_users/passwords',
-    registrations: 'end_users/registrations'
-  }
-  devise_for :admin, controllers: {
-    sessions:      'admins/sessions',
-    passwords:     'admins/passwords',
-    registrations: 'admins/registrations'
-  }
-
-  namespace :admin do
-    root to: 'homes#top'
-    get 'end_users' => 'end_users#index'
-    resources :items, only: [:index, :show, :new, :create, :edit, :update]
-    resources :genres, only: [:index, :create, :edit, :update]
-    resources :orders, only: [:index, :show, :update]
-    resources :order_details, only: [:update]
-  end
-
   scope module: 'public' do
     get '/about' => 'homes#about'
     get 'end_users/my_page' => 'end_users#show'
@@ -38,7 +17,20 @@ Rails.application.routes.draw do
     get 'orders/conclusion' => 'orders#conclusion'
     post 'orders/confirm'
     resources :orders, only: [:index, :new, :create, :show]
-
   end
-
+  namespace :admin do
+    root to: 'homes#top'
+    get 'end_users' => 'end_users#index'
+    resources :items, only: [:index, :show, :new, :create, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :orders, only: [:index, :show, :update]
+    resources :order_details, only: [:update]
+  end
+  devise_for :end_users,skip: [:passwords,], controllers: {
+   sessions:      'end_users/sessions',
+   registrations: 'end_users/registrations'
+  }
+  devise_for :admin,skip: [:passwords,], controllers: {
+   sessions:      'admins/sessions',
+  }
 end

@@ -12,12 +12,34 @@ Admin.create!(
 Genre.create!(
   name: "ケーキ"
 )
+Genre.create!(
+  name: "パンケーキ"
+)
+Genre.create!(
+  name: "クッキー"
+)
 
 Item.create!(
   genre_id: 1,
-  name: "ケーキ",
-  image: File.open('./app/assets/images/cake.jpg'),
+  name: "ストロベリーケーキ",
+  image: File.open('./app/assets/images/Strawberrycake.jpg'),
   introduction: "テスト",
-  price: 10000,
+  price: 1000,
+  is_active: true
+)
+Item.create!(
+  genre_id: 2,
+  name: "パンケーキ",
+  image: File.open('./app/assets/images/pancake.jpg'),
+  introduction: "テスト",
+  price: 1500,
+  is_active: true
+)
+Item.create!(
+  genre_id: 3,
+  name: "クッキー",
+  image: File.open('./app/assets/images/cookie.jpg'),
+  introduction: "テスト",
+  price: 2000,
   is_active: true
 )

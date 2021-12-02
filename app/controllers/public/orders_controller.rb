@@ -6,6 +6,14 @@ class Public::OrdersController < ApplicationController
     @addresses = current_end_user.addresses
   end
 
+  def index
+    @orders = Order.all
+  end
+  def show
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details
+  end
+
   def create# Order に情報を保存します
     @order = Order.new(order_params)
     cart_item = current_end_user.cart_items.all#ログインユーザーのカートアイテムをすべて取り出してcart_item に入れる
