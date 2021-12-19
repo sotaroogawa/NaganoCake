@@ -1,0 +1,40 @@
+<header>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+<% if end_user_signed_in? %>
+      <li><%= link_to "", root_path,class: 'fas fa-home nav-link text-light'  %></li>
+      <li><%= link_to "マイページ", end_users_my_page_path,class: 'fas fa-user nav-link text-light' %></li>
+      <li><%= link_to "商品一覧", items_path ,class: 'fas fa-cookie nav-link text-light'%></li>
+      <li><%= link_to "カート", cart_items_path,class: 'fas fa-shopping-cart nav-link text-light' %></li>
+      <li><%= link_to "logout", destroy_end_user_session_path, method: :delete,class: 'fas fa-sign-out-alt nav-link text-light' %></li>
+    <% elsif admin_signed_in? %>
+      <li><%= link_to "", admin_root_path,class: 'fas fa-home nav-link text-light'  %></li>
+      <li><%= link_to "商品一覧", admin_items_path,class: 'fas fa-cookie nav-link text-light' %></li>
+      <li><%= link_to "会員一覧", admin_end_users_path,class: 'fas fa-user nav-link text-light' %></li>
+      <li><%= link_to "注文履歴一覧", admin_orders_path,class: 'fab fa-first-order nav-link text-light' %></li>
+      <li><%= link_to "ジャンル一覧", admin_genres_path,class: 'fas fa-object-group nav-link text-light' %></li>
+      <li><%= link_to "logout", destroy_admin_session_path, method: :delete,class: 'fas fa-sign-out-alt nav-link text-light' %></li>
+      <li><div class="input-group">
+        <%= form_with url:admin_items_path, method: :get, local: true do |f| %>
+          <%= f.text_field :search, class: "form-control", placeholder: "商品検索" %>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default">
+                <%= f.submit "Search" %>
+              </button>
+            </span>
+        <% end %>
+      </li>
+      </div><br>
+    <% else %>
+      <li><%= link_to "", root_path,class: 'fas fa-home nav-link text-light'  %></li>
+      <li><%= link_to "商品一覧", items_path,class: 'fas fa-cookie nav-link text-light' %></li>
+      <li><%= link_to "signup", new_end_user_registration_path,class: 'fas fa-user-plus nav-link text-light' %></li>
+      <li><%= link_to "login", new_end_user_session_path,class: 'fas fa-sign-in-alt nav-link text-light' %></li>
+    <% end %>
+     </ul>
+      </div>
+    </div>
+  </nav>
+ </header>
