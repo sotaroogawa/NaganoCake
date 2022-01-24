@@ -1,49 +1,58 @@
-<h2>会員情報編集</h2>
-<%= form_with(model:@end_user, url:end_users_update_path ,method: :PATCH) do |f| %>
-<table>
-  <tr>
-    <div class="field">
-      <th><%= f.label :氏名 %></th>
-      <td><%= f.text_field :last_name %></td>
-      <td><%= f.text_field :first_name %></td>
-    </div>
-  </tr>
-  <tr>
-    <div class="field">
-      <th><%= f.label :カナ %></th>
-      <td><%= f.text_field :last_name_kana %></td>
-      <td><%= f.text_field :first_name_kana %></td>
-    </div>
-  </tr>
-  <tr>
-    <div class="field">
-      <th><%= f.label :郵便番号 %></th>
-      <td><%= f.text_field :postal_code %></td>
-    </div>
-  </tr>
-  <tr>
-    <div class="field">
-      <th><%= f.label :住所 %></th>
-      <td><%= f.text_field :address %></td>
-    </div>
-  </tr>
-  <tr>
-    <div class="field">
-      <th><%= f.label :電話番号 %></th>
-      <td><%= f.text_field :telephone_number %></td>
-    </div>
-  </tr>
-  <tr>
-    <div class="field">
-      <th><%= f.label :メールアドレス %></th><
-      <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
-    </div>
-  </tr>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h3 class="bg-light">会員情報編集</h3>
+      <%= form_with model: current_end_user, url: end_users_update_path, local: true do |f| %>
+        <div class="form-row">
+          <div class="col-lg-4"><p>氏名</p></div>
+          <div class="form-group col-lg-8">
+            <%= f.text_field :last_name, class:"col-lg-4"  %>
+            <%= f.text_field :first_name, class:"col-lg-4"  %>
+          </div>
+        </div>
 
-  <div class="action"><br>
-    <%= f.submit "編集内容を保存する" %>
-    <%= link_to "退会する", end_users_unsubscribe_path %>
+        <div class="form-row">
+          <div class="col-lg-4"><p>フリガナ</p></div>
+          <div class="form-group col-lg-8">
+            <%= f.text_field :last_name_kana, class:"col-lg-4"  %>
+            <%= f.text_field :first_name_kana,  class:"col-lg-4"  %>
+          </div>
+        </div>
+
+        <div class="form_group">
+          <div class="field">
+            <%= f.label "郵便番号", class:"col-4" %>
+            <%= f.text_field :postal_code, autofocus: true, autocomplete: "zip_code", class:"col-lg-5"  %>
+          </div>
+        </div>
+
+        <div class="form_group">
+          <div class="field">
+            <%= f.label "住所", class:"col-4" %>
+            <%= f.text_field :address, class:"col-lg-7" %>
+          </div>
+        </div>
+
+        <div class="form_group">
+          <div class="field">
+            <%= f.label "電話番号", class:"col-4" %>
+            <%= f.text_field :telephone_number, class:"col-lg-5" %>
+          </div>
+        </div>
+
+        <div class="form_group">
+          <div class="field">
+            <%= f.label "メールアドレス", class:"col-lg-4" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-lg-5"  %>
+          </div>
+        </div>
+
+
+        <div class="actions mb-2">
+          <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+        </div>
+      <% end %>
+      <%= link_to "退会する", end_users_unsubscribe_path, class: "btn btn-danger" %>
+    </div>
   </div>
-
-<% end %>
+</div>

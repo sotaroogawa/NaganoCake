@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
     resources :cart_items, only: [:index, :create, :update, :destroy]
     delete 'cart_items' => 'cart_items#destroy_all', as:'destroy_all'
-    resources :addresses, only: [:index, :create, :new, :destroy]
+    resources :addresses, only: [:index, :create, :new, :destroy, :edit, :update]
 
     get 'orders/conclusion' => 'orders#conclusion'
     post 'orders/confirm'

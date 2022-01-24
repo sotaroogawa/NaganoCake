@@ -1,22 +1,29 @@
-<div class="text-left">
-  <%= render "public/shared/sidebar", genres: @genres %><br>
-</div>
-
-<div class="text-center">
-  <h1>商品一覧</h1>
-  <div class="card-body row d-flex justify-content-center">
-    <% @items.each do |item| %>
-      <div class="card m-4 col-md-3.5 p-2" style="width: 18rem;">
-        <%= attachment_image_tag item, :image, size: "280x100" %>
-         <%= link_to item_path(item) do %>
-          <div class="card-body">
-            <p class="card-text">
-              <%= item.name %><br>
-              ¥<%= item.add_tax_price.to_s(:delimited) %>
-            </p>
-          </div>
-          <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <div class="text-center">
+      <div class="border border-dark">
+        <h4 class="border-bottom border-dark">ジャンル検索</h4>
+          <%= render "public/shared/sidebar", genres: @genres %>
       </div>
-    <% end %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-10 col-lg-9 px-5 px-sm-0 mx-auto">
+      <h2 class="p-3">商品一覧(全<%= @items.count %>件)</h2>
+      <% if !(@genre.nil?) %>
+        <p class="p-3">ジャンル絞り込み：<%= @genre.name %></p>
+      <% end %>
+      <div class="d-flex flex-wrap p-3">
+        <% @items.each do |item| %>
+          <% if item.is_active %>
+            <div class="m-3" style="width: 160px">
+              <%= attachment_image_tag item, :image, size: "160x120" %> </br>
+              <p class="m-0 text-wrap"><%= link_to item.name, item_path(item) %></p>
+              <p class="m-0">¥<%= item.add_tax_price.to_s(:delimited) %></p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

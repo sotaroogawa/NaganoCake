@@ -1,29 +1,34 @@
-<div class="text-center">
-  <h1>注文情報履歴</h1>
-
-  <h3>注文情報</h3>
-  <table>
-    <tr>
-      <th>注文日</th>
-      <td><%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-    </tr>
-    <tr>
-      <th>配送先</th>
-      <td><%= @order.address %></td>
-    </tr>
-    <tr>
-      <th>支払い方法</th>
-      <td>
-        <% if @order.card? %>
-          <span>カード</span>
-        <% else %>
-          <span>銀行振込</span>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <th>ステータス</th>
-      <td>
+<div class="container">
+  <div class="row">
+    <div class="col offset-md-1">
+      <h1>注文情報履歴</h1>
+    </div>
+  </div>
+<div class="row">
+    <div class="col-sm-12 col-md-10 col-lg-10">
+      <h3>注文情報</h3>
+    <table class="table table-borderless">
+      <tr>
+       <th>注文日</th>
+       <td><%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+      </tr>
+      <tr>
+        <th>配送先</th>
+        <td><%= @order.address %></td>
+      </tr>
+      <tr>
+        <th>支払い方法</th>
+        <td>
+          <% if @order.card? %>
+            <span>カード</span>
+          <% else %>
+            <span>銀行振込</span>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>ステータス</th>
+        <td>
         <% if @order.payment_waiting? %>
           <span>入金待ち</span>
         <% elsif @order.confirm? %>
@@ -35,12 +40,15 @@
         <% elsif @order.executed? %>
           <span>発送済み</span>
         <% end %>
-      </td>
-    </tr>
-  </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
 
-  <h3>請求情報</h3>
-  <table class="table table-bordered">
+<div class="col-3">
+      <table class="table table-borderless">
+        <h3>請求情報</h3>
     <tr>
       <th>商品合計</th>
       <td ><%= @sum = (@order.total_payment - @order.shipping_cost).to_s(:delimited, delimiter: ',') %>円</td>
@@ -54,10 +62,13 @@
       <td><%= @order.total_payment.to_s(:delimited, delimiter: ',') %>円</td>
     </tr>
   </table>
+  </div>
 
-  <h3>注文内容</h3>
-  <table class="table table-bordered">
-    <thead>
+<div class="row">
+    <div class="col-9">
+      <table class="table table-borderless mb-0">
+        <h3>注文内容</h3>
+        <thead class="thead-light">
       <tr>
         <th>商品</th>
         <th>単価</th>
@@ -69,7 +80,7 @@
       <% @order_details.each do |order_detail| %>
         <tr>
           <td><%= order_detail.item.name %></td>
-          <td><%= order_detail.price.to_s(:delimited, delimiter: ',') %></td>
+          <td><%= order_detail.price %></td>
           <td><%= order_detail.amount %></td>
           <td><%= (order_detail.price * order_detail.amount).to_s(:delimited, delimiter: ',') %></td>
         </tr>
@@ -77,3 +88,5 @@
     </tbody>
   </table>
 </div>
+</div>
+

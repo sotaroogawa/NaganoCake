@@ -1,28 +1,31 @@
-<h2>会員一覧</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>会員ID</th>
-      <th>氏名</th>
-      <th>メールアドレス</th>
-      <th>ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @end_users.each do |user| %>
-      <tr>
-        <th><%= user.id %></th>
-        <th><%= user.last_name %><%= user.first_name %></th>
-        <th><%= user.email %></th>
-        <th>
-          <% if user.is_unsubscribe == false %>
-            有効
-          <% else %>
-          　退会
+<div class ="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-lg-8 px-5 px-sm-0 mx-auto ">
+      <h3 class="m-3">会員一覧</h3>
+      <table class="table mx-auto">
+        <thead class="thead-light">
+          <tr>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @end_users.each do |end_user| %>
+            <tr>
+              <td><%= end_user.id %></td>
+              <td><%= end_user.last_name %> <%= end_user.first_name %></td>
+              <td><%= end_user.email %></td>
+              <% if end_user.is_unsubscribe %>
+                <td class="text-muted">退会</td>
+              <% else %>
+                <td class="text-success">有効</td>
+              <% end %>
+            </tr>
           <% end %>
-        </th>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
